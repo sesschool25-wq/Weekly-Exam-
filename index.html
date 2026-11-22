@@ -147,7 +147,7 @@ function calc(s,e){const m=(S.mk[e]||{})[s.id];if(!m)return{none:1};if(m.a)retur
  const rows=(S.sub[s.c]||[]).map(x=>{const v=m.s&&m.s[x.n]!==undefined&&m.s[x.n]!==''?+m.s[x.n]:null;const p=(v||0)/x.fm*100;return{n:x.n,fm:+x.fm,v,p,g:gr(p)[0],pt:gr(p)[1]}});
  let t=0,f=0,pt=0,fail=0;rows.forEach(r=>{t+=r.v||0;f+=r.fm;pt+=r.pt;if(r.g==='F')fail=1});
  const gpa=fail?0:pt/(rows.length||1);return{rows,t,f,gpa,fail,pct:f?t/f*100:0,g:fail?'F':gr(gpa*20)[0],m}}
-function rank(c,e){const a=stu(c).map(s=>[s.id,calc(s,e)]).filter(x=>x[1].rows).sort((a,b)=>b[1].t-a[1].t),r={};a.forEach((x,i)=>r[x[0]]=i&&x[1].t===a[i-1][1].t?r[a[i-1][0]]:i+1);return r}
+function rank(c,e){const a=stu(c).map(s=>[s.id,calc(s,e)]).filter(x=>x[1].rows).sort((a,b)=>b[1].t-a[1].t),r={};a.forEach((x,i)=>r[x[0]]=!i?1:x[1].t===a[i-1][1].t?r[a[i-1][0]]:r[a[i-1][0]]+1);return r}
 const remark=c=>c.m&&c.m.rm?c.m.rm:c.fail?'Needs special care and extra practice. Parents are requested to help at home.':c.gpa>=5?'Outstanding performance! Keep up the excellent work.':c.gpa>=4?'Very good result. Keep it up.':c.gpa>=3?'Good effort. With more practice can do even better.':'Needs more attention and regular practice.';
 function ms(s,e,id){const c=calc(s,e),ex=S.ex.find(x=>x.id===e)||{},R=rank(s.c,e),pos=R[s.id];
  const I=(l,v)=>`<div><small>${l}</small><b${l==='Student Name'?' class="nm"':''}>${esc(v)}</b></div>`;
@@ -234,7 +234,7 @@ const CXL=c=>S.ex.filter(x=>x.pub&&stu(c).some(t=>calc(t,x.id).rows)),sid=id=>S.
 function cx(s){const L=CXL(s.c),sb=S.sub[s.c]||[],cs_=L.map(x=>calc(s,x.id));if(!cs_.some(c=>c.rows))return{none:1,L};
  let t=0,f=0,pt=0,fail=0;const rows=sb.map(x=>{const per=cs_.map(c=>{const r=c.rows&&c.rows.find(z=>z.n===x.n);return r?(r.v==null?0:r.v):(c.abs?'A':'-')});const v=per.reduce((a,b)=>a+(+b||0),0),fm=x.fm*L.length,p=fm?v/fm*100:0,g=gr(p);t+=v;f+=fm;pt+=g[1];if(g[0]==='F')fail=1;return{n:x.n,per,v,fm,p,g:g[0]}});
  const gpa=fail?0:pt/(rows.length||1);return{rows,L,cs_,t,f,gpa,fail,pct:f?t/f*100:0,g:fail?'F':gr(gpa*20)[0]}}
-function crank(c){const a=stu(c).map(s=>[s.id,cx(s)]).filter(x=>!x[1].none).sort((a,b)=>b[1].t-a[1].t),r={};a.forEach((x,i)=>r[x[0]]=i&&x[1].t===a[i-1][1].t?r[a[i-1][0]]:i+1);return r}
+function crank(c){const a=stu(c).map(s=>[s.id,cx(s)]).filter(x=>!x[1].none).sort((a,b)=>b[1].t-a[1].t),r={};a.forEach((x,i)=>r[x[0]]=!i?1:x[1].t===a[i-1][1].t?r[a[i-1][0]]:r[a[i-1][0]]+1);return r}
 function elig(s){const k=cx(s);if(k.none||k.fail)return 0;const p=crank(s.c)[s.id];return p&&p<=3?p:0}
 function cms(s,id){const c=cx(s),pos=crank(s.c)[s.id],I=(l,v)=>`<div><small>${l}</small><b${l==='Student Name'?' class="nm"':''}>${esc(v)}</b></div>`,wk=x=>x.w?'Wk '+x.w:x.n;
  const hd=`<div class="wm"></div><div class="stripe"></div><div class="in"><img class="lg" src="${LOGO}" alt="">${S.ad?`<div class="ad">${esc(S.ad)}</div>`:''}<div class="ttl">COMBINED RESULT SHEET</div><div class="pill">ALL WEEKLY EXAMS${c.L.length?' \u00b7 '+c.L.length+' EXAMS':''}</div><div class="inf">${I('Student Name',s.n)}${I('Student ID',s.id)}${I('Class',s.c)}${I('Roll',s.r)}${I("Father's Name",s.f||'-')}${I('Session',S.ses)}${I('Exams counted',c.L.map(x=>x.w?'Week '+x.w:x.n).join(', ')||'-')}${I('Issued On',new Date().toLocaleDateString('en-GB'))}</div>`;
