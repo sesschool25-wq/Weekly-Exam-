@@ -348,7 +348,135 @@ main .w tr:hover td{background:rgba(31,75,196,.07)}
 .wb{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
 .wb i{display:block;width:70%;max-width:34px;border-radius:5px 5px 0 0}
 .wb .wv{font-size:10px;font-weight:700}.wb small{font-size:9px;margin-top:2px;white-space:nowrap}
-</style></head><body>
+</style><style id="mobile-fix">
+/* ===== Mobile / Tablet / Desktop responsive polish ===== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg,canvas{max-width:100%}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+.w{-webkit-overflow-scrolling:touch}
+.xp .tw{overflow:visible}
+/* PDF/Image export always renders full A4 layout (even when made from a phone) */
+.xp .sh .inf{grid-template-columns:1fr 1fr}
+.xp .sum{grid-template-columns:repeat(4,1fr)}
+.xp .sh .lg{height:92px}.xp .sh .in{padding:20px 28px 22px}
+.xp .sh .pbar{display:inline-block}
+@media screen and (min-width:1280px){main{max-width:1240px}}
+
+@media screen and (max-width:760px){
+  html,body{max-width:100%}body{overflow-x:hidden;font-size:15px}
+  /* Touch friendly controls; 16px stops iOS auto-zoom on focus */
+  button,select,input{min-height:42px;font-size:16px}
+  td input[type=number]{width:64px;min-height:38px}
+  td input.t{min-width:110px}
+  header{padding:10px 12px}
+  .top{gap:8px}
+  .brand{font-size:15px;gap:8px;min-width:0;flex:1 1 200px}
+  .brand small{font-size:10px}
+  .lgb img{height:30px}
+  header .row{margin:0;gap:6px}
+  header button{min-height:38px;font-size:14px;padding:6px 12px;white-space:nowrap}
+  nav{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px -12px 0;padding:0 12px 4px;scrollbar-width:none}
+  nav::-webkit-scrollbar{display:none}
+  nav button{flex:0 0 auto}
+  main{padding:12px 10px 28px}
+  .bar{gap:8px}.bar select,.bar input{flex:1 1 140px;min-width:0}
+  .card{padding:14px;border-radius:12px}
+  /* Home / login */
+  main .hero{padding:30px 12px 64px;border-radius:20px}
+  .hero h1{font-size:24px}
+  .hero .tag{letter-spacing:.14em;font-size:11px;padding:6px 14px}
+  .hero .lgh{padding:8px 12px;border-radius:14px}
+  .sc{margin:-40px 2px 14px;padding:16px;border-radius:18px}
+  .lk{flex-direction:column;align-items:stretch}.lk input{width:100%}
+  .lk2{grid-template-columns:1fr 1fr}.lk2 button{grid-column:1/-1}
+  .how{grid-template-columns:1fr;gap:10px}.hw{padding:16px 12px}
+  .sts{grid-template-columns:1fr 1fr;gap:10px}.st2{padding:14px}.st2 b{font-size:28px}
+  .stats{grid-template-columns:1fr 1fr}
+  .chips{gap:6px}.chips button{flex:1 1 auto}
+  /* Tables never break the page; they scroll inside their box */
+  th,td{padding:7px 8px}
+  .w table{font-size:13.5px}
+  .mt th:nth-child(1),.mt td:nth-child(1){position:sticky;left:0;z-index:2;min-width:52px;width:52px;background:var(--cd)}
+  .mt th:nth-child(2),.mt td:nth-child(2){position:sticky;left:52px;z-index:2;background:var(--cd);box-shadow:2px 0 0 var(--bd)}
+  .mt th:nth-child(-n+2){background:var(--cd);color:var(--mu)}
+  .mt tr.abs td:nth-child(-n+2){background:var(--rd)}
+  .mt tr.tp td:nth-child(-n+2){background:#fed7aa}
+  /* Marksheet (inside app + preview overlay only) */
+  #app .sh,#ov .sh{max-width:100%;border-width:3px;border-radius:10px;margin-bottom:14px}
+  #app .sh .in,#ov .sh .in{padding:12px 12px 16px}
+  #app .sh .lg,#ov .sh .lg{height:60px}
+  #app .sh .ttl,#ov .sh .ttl{font-size:14px;letter-spacing:.06em}
+  #app .sh .pill,#ov .sh .pill{font-size:11px;padding:3px 12px;max-width:100%;text-align:center}
+  #app .sh .inf,#ov .sh .inf{grid-template-columns:1fr 1fr;gap:6px 10px;padding:8px 10px;font-size:13px}
+  #app .sh .nm,#ov .sh .nm{font-size:14px}
+  #app .sh td,#ov .sh td,#app .sh th,#ov .sh th{padding:6px 6px;font-size:12.5px}
+  #app .sh td:first-child,#ov .sh td:first-child{white-space:normal;min-width:84px}
+  #app .sh .pbar,#ov .sh .pbar{display:none}
+  #app .sum,#ov .sum{grid-template-columns:1fr 1fr;gap:8px}
+  #app .cardx,#ov .cardx{padding:8px}
+  #app .big2,#ov .big2{font-size:18px}
+  #app .stamp,#ov .stamp{font-size:24px;padding:10px}
+  #app .rm,#ov .rm{font-size:13px}
+  #app .ach,#ov .ach{font-size:13px}
+  #app .sg,#ov .sg{margin-top:28px;font-size:11px;gap:6px}
+  #app .sg div,#ov .sg div{width:31%}
+  #app .sh .leg,#ov .sh .leg{font-size:9.5px;line-height:1.5}
+  /* Class-wide result sheets scroll sideways */
+  #app .csp,#ov .csp{width:100%;padding:12px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .csp table{min-width:720px}.csp h3{font-size:18px}
+  .csp .ss{gap:10px}
+  /* Certificate keeps its proportions; swipe to view */
+  .cw{margin:0 -4px}.sw{font-size:12px}
+  /* Podium / celebration */
+  .pod{gap:6px}.mdl{font-size:30px}.blk{font-size:22px}
+  .cgi{padding:22px 16px;border-radius:20px}.cgi .tr{font-size:60px}.cgi h3{font-size:24px}.cgi .bn2{font-size:18px}.cgi .big{font-size:17px}
+  .cgi .rays{width:420px;height:420px;margin:-210px 0 0 -210px}
+  /* Full screen preview overlay */
+  #ov{padding:8px}
+  #ov .noprint{gap:6px!important}#ov .noprint button{flex:1 1 130px;font-size:14px}
+  #sp .spt{font-size:18px}
+  .ft2{padding:14px 8px;font-size:12px}
+  .dock{right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px))}
+  #errT{left:8px!important;right:8px!important}
+}
+@media screen and (max-width:380px){
+  .brand{font-size:13px}.hero h1{font-size:21px}
+  .lk2{grid-template-columns:1fr}
+  #app .sh .inf,#ov .sh .inf{font-size:12px}
+  #app .sum,#ov .sum{grid-template-columns:1fr 1fr}
+  .sts{grid-template-columns:1fr 1fr}
+}
+@media screen and (orientation:landscape) and (max-height:480px){
+  .hero{padding-top:20px}.dock{display:none}
+}
+@media screen and (max-width:760px){
+  .stk th:nth-child(1),.stk td:nth-child(1){position:sticky;left:0;z-index:2;min-width:52px;width:52px;background:var(--cd)}
+  .stk th:nth-child(2),.stk td:nth-child(2){position:sticky;left:52px;z-index:2;background:var(--cd);box-shadow:2px 0 0 var(--bd);min-width:130px}
+  .stk tr.abs td:nth-child(-n+2){background:var(--rd)}
+}
+@media screen and (max-width:760px){
+  #app .sh th,#ov .sh th{white-space:normal;font-size:10.5px;letter-spacing:0;padding:6px 3px;text-align:center;line-height:1.2}
+  #app .sh th:first-child,#ov .sh th:first-child{text-align:left;padding-left:6px}
+  #app .sh td,#ov .sh td{padding:6px 4px}
+  #app .sh td:first-child,#ov .sh td:first-child{padding-left:6px;min-width:70px}
+  #app .sh table,#ov .sh table{table-layout:auto;width:100%}
+  .strip{gap:8px}.strip button{flex:1 1 100%}
+  .dock{bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+}
+@media screen and (max-width:760px){
+  .stk td:nth-child(2),.stk th:nth-child(2){min-width:96px;max-width:110px;width:110px;white-space:normal;font-size:12.5px;line-height:1.25;word-break:break-word}
+  .stk th:nth-child(1),.stk td:nth-child(1){min-width:40px;width:40px;padding-left:6px;padding-right:4px}
+  .stk th:nth-child(2),.stk td:nth-child(2){left:40px}
+  .stk td input.t{min-width:100px}
+}
+@media screen and (max-width:760px){
+  .row>*,.bar>*{max-width:100%}
+  .row label{min-width:0;max-width:100%}
+  input[type=file]{min-width:0;max-width:100%;width:100%;font-size:14px}
+  .sgrow{gap:8px}
+}
+</style>
+</head><body>
 <div id="app"></div><div id="ov"></div>
 <script type="application/json" id="data">{"sn": "Shafipur Evergreen Smart School", "st": [], "sub": {}, "ex": [], "mk": {}, "pv": true, "ses": "2026"}</script>
 <script id="js">
@@ -668,4 +796,26 @@ document.getElementById('uiTop').onclick=()=>scrollTo({top:0,behavior:RM?'auto':
 addEventListener('scroll',()=>{const h=root.scrollHeight-innerHeight;bar.style.width=(h>0?scrollY/h*100:0)+'%'},{passive:true});
 addEventListener('mousemove',e=>{if(RM)return;const x=(e.clientX/innerWidth-.5)*14,y=(e.clientY/innerHeight-.5)*14;document.querySelectorAll('.hero .st').forEach((s,i)=>s.style.translate=`${x*(i%2?-1:1)}px ${y}px`)},{passive:true});
 })();
-</script></body></html>
+</script><script id="mobile-fix-js">
+/* Wrap every table in a horizontal scroll box so it never overflows the phone screen */
+(function(){
+  function wrap(root){
+    root.querySelectorAll('table').forEach(function(t){
+      var h=t.querySelectorAll('tr:first-child th');if(h.length>2&&/^roll$/i.test(h[0].textContent.trim())&&/^name$/i.test(h[1].textContent.trim()))t.classList.add('stk');
+      if(t.closest('.w,.tw,.cw,.xp'))return;
+      var d=document.createElement('div');d.className='tw';
+      t.parentNode.insertBefore(d,t);d.appendChild(t);
+    });
+  }
+  var q=null;
+  function run(){q=null;['app','ov'].forEach(function(id){var e=document.getElementById(id);if(e)wrap(e)})}
+  function sched(){if(!q)q=requestAnimationFrame(run)}
+  function start(){
+    run();
+    var mo=new MutationObserver(sched);
+    ['app','ov'].forEach(function(id){var e=document.getElementById(id);if(e)mo.observe(e,{childList:true,subtree:true})});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+})();
+</script>
+</body></html>
